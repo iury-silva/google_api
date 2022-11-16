@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: _title,
       home: MyStatefulWidget(),
     );
@@ -29,12 +30,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
  
    List<Widget> _widgetOptions = <Widget>[
+    
+    Text(
+      'Index 1: Ip',
+    ),
     MapSample(),
     Text(
-      'Index 1: Business',
-    ),
-    Text(
-      'Index 2: School',
+      'Index 2: Help',
     ),
     Text(
       'Index 3: Settings',
@@ -83,7 +85,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             backgroundColor: Color.fromARGB(255, 116, 150, 223),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map),
+            icon: Icon(Icons.gps_fixed),
             label: 'Trace',
             backgroundColor: Color.fromARGB(255, 71, 173, 187),
           ),
