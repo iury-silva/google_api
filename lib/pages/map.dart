@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_api/util/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-
 
 class MapSample extends StatefulWidget {
   @override
@@ -12,9 +11,10 @@ class MapSample extends StatefulWidget {
 
 class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
+  TextEditingController _searchController = TextEditingController();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(-30.1169, -51.2658),
     zoom: 14.4746,
   );
 
@@ -26,16 +26,27 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(      
+    return new Scaffold(
       body: Column(
         children: [
-          Row(children: [
-            Expanded(child: TextFormField()),
-            IconButton(onPressed: () {
-              
-            }, icon: Icon(Icons.search))
-
-          ],),
+          Row(
+            children: [
+              Expanded(
+                  child: TextFormField(
+                controller: _searchController,
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(hintText: 'Search by ip'),
+                onChanged: (value) {
+                  print(value);
+                },
+              )),
+              IconButton(
+                  onPressed: () {
+                    // LocationService().getPlaceId(_searchController.text);
+                  },
+                  icon: Icon(Icons.search))
+            ],
+          ),
           Expanded(
             child: GoogleMap(
               mapType: MapType.normal,
@@ -43,12 +54,10 @@ class MapSampleState extends State<MapSample> {
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
-            
             ),
           ),
         ],
       ),
-      
     );
   }
 
